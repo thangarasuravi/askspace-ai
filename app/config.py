@@ -11,8 +11,9 @@ class Config:
     """Base application configuration."""
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-askspace-ai-portfolio-2026')
     
-    # Instance directory for database storage
-    INSTANCE_PATH = basedir / 'instance'
+    # Instance directory for database storage (use /tmp on Vercel/serverless)
+    is_serverless = os.environ.get('VERCEL') == '1' or os.environ.get('AWS_LAMBDA_FUNCTION_NAME') is not None
+    INSTANCE_PATH = Path('/tmp') if is_serverless else (basedir / 'instance')
     
     # SQLite default database path
     SQLALCHEMY_DATABASE_URI = os.environ.get(
