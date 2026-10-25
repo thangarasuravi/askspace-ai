@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}AskSpace AI — Personal Notebook{% endblock %}
+{% block header_title %}Personal Notebook{% endblock %}
+
+{% block content %}
+<div class="notebook-workspace" id="notebookWorkspace">
+    <!-- NOTEBOOK TOOLBAR -->
+    <div class="notebook-header-bar">
+        <div class="notebook-search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="notebookSearchInput" placeholder="Search saved answers and notes..." aria-label="Search saved notes">
+            <button class="clear-search-btn" id="clearNotebookSearchBtn" style="display:none;" aria-label="Clear notebook search">&times;</button>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="notebook-category-tabs" role="tablist">
+            <button class="notebook-tab active" data-category="All" role="tab">All Notes</button>
+            <button class="notebook-tab" data-category="Study" role="tab">Study</button>
+            <button class="notebook-tab" data-category="Coding" role="tab">Coding</button>
+            <button class="notebook-tab" data-category="Career" role="tab">Career</button>
+            <button class="notebook-tab" data-category="General" role="tab">General</button>
+        </div>
+
+        <!-- Custom Action Buttons -->
+        <div class="notebook-actions-wrap">
+            <button class="btn btn-secondary btn-sm" id="btnExportNotebook" title="Export all notes to Markdown (.md)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Export</span>
+            </button>
+            <button class="btn btn-primary btn-sm" id="btnNewNoteModal" title="Create a custom note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New Note</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- NOTEBOOK ENTRIES CONTAINER -->
+    <div class="notebook-content-area" id="notebookContentArea">
+        <div class="notes-grid" id="notesGrid" role="region" aria-label="Saved notes list">
+            <!-- Dynamically populated by app.js -->
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="empty-state" id="notebookEmptyState" style="display:none;">
+            <div class="empty-icon-wrap">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </div>
+            <h3 class="empty-title">Your Notebook is Empty</h3>
+            <p class="empty-desc">
+                When AskSpace AI provides a useful code snippet, definition, or interview tip,
+                click the <strong>"Save to Notebook"</strong> button on any response card to preserve it here.
+            </p>
+            <a href="{{ url_for('pages.index') }}" class="btn btn-primary">Start a Chat</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
